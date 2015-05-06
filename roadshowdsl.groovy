@@ -1,9 +1,9 @@
-job("meekrosoft.roadshow.generated.build") {
+job("${GITHUB_USER}.roadshow.generated.build") {
     scm {
       git{
         remote {
           name('origin')
-          url("git@github.com:meekrosoft/roadshow.git")
+          url("git@github.com:${GITHUB_USER}/roadshow.git")
         }
         branch("master")
       }
@@ -23,12 +23,12 @@ job("meekrosoft.roadshow.generated.build") {
     }
 }
 
-job("meekrosoft.roadshow.generated.staticanalysis") {
+job("${GITHUB_USER}.roadshow.generated.staticanalysis") {
     scm {
         git{
           remote {
             name('origin')
-            url("git@github.com:meekrosoft/roadshow.git")
+            url("git@github.com:${GITHUB_USER}/roadshow.git")
           }
           branch("master")
         }
