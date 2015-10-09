@@ -45,6 +45,23 @@ def addGitSCM(def context, repoURL, branchName='master') {
 }
 
 /*
+ * Create a view
+ */
+listView("${GITHUB_USER}") {
+    description('All jobs for GitHub user ${GITHUB_USER}')
+    jobs {
+        regex(/${GITHUB_USER}.+/)
+    }
+    columns {
+        name()
+        status()
+        weather()
+        lastDuration()
+        buildButton()
+    }
+}
+
+/*
  * Verify that we can build war, run unit tests and measure code coverage
  */
 job("${GITHUB_USER}.roadshow.generated.build") {
