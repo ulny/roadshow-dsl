@@ -27,8 +27,11 @@ def addDefaultParameters(def context, buildsToKeep=50, artifactsToKeep=10, timeo
 }
 
 /*
- * Use this function to find credentialsId via its name
- * name - credentials name
+ * This function is very useful if you create credentials manually - in this case
+ * credentials Id will be generated automatically and you can't predict how they will look like
+ * Use this function to look up credential id using credentials description
+ *
+ * name - value of credential description field
  *
  */
 def credentialsIdLookUp(name) {
