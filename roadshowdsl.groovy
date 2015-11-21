@@ -1,3 +1,6 @@
+import jenkins.*
+import jenkins.model.*
+
 /*
  * Use this function to enable must have-defaults for your jobs
  * LogRotator - make sure that you are cleaning up old logs
@@ -24,17 +27,38 @@ def addDefaultParameters(def context, buildsToKeep=50, artifactsToKeep=10, timeo
 }
 
 /*
+ * Use this function to find credentialsId via its name
+ * name - credentials name
+ *
+ */
+def credentialsIdLookUp(name) {
+    def creds = com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
+        com.cloudbees.plugins.credentials.common.StandardUsernameCredentials.class,
+        Jenkins.instance,
+        null,
+        null
+  );
+  for (c in creds) {
+    if (c.description == name) {
+      return c.id
+    }
+  }
+  return null
+}
+
+/*
  * Use this function to setup git clone to your repo
  * repoURL - URL for repository to clone
  * branch - branch name to checkout
  *
  */
-def addGitSCM(def context, repoURL, branchName='master') {
+def addGitSCM(def context, repoURL, branchName='master', credentialsId='jenkins') {
     context.scm {
         git{
             remote {
                 name('origin')
                 url(repoURL)
+                credentials(credentialsIdLookUp(credentialsId))
             }
           branch(branchName)
           // Make sure that repository is clean and we have
