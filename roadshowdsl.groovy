@@ -27,29 +27,6 @@ def addDefaultParameters(def context, buildsToKeep=50, artifactsToKeep=10, timeo
 }
 
 /*
- * This function is very useful if you create credentials manually - in this case
- * credentials Id will be generated automatically and you can't predict how they will look like
- * Use this function to look up credential id using credentials description
- *
- * name - value of credential description field
- *
- */
-def credentialsIdLookUp(name) {
-    def creds = com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
-        com.cloudbees.plugins.credentials.common.StandardUsernameCredentials.class,
-        Jenkins.instance,
-        null,
-        null
-  );
-  for (c in creds) {
-    if (c.description == name) {
-      return c.id
-    }
-  }
-  return null
-}
-
-/*
  * Use this function to setup git clone to your repo
  * repoURL - URL for repository to clone
  * branch - branch name to checkout
@@ -61,7 +38,7 @@ def addGitSCM(def context, repoURL, branchName='master', credentialsId='jenkins'
             remote {
                 name('origin')
                 url(repoURL)
-                credentials(credentialsIdLookUp(credentialsId))
+                credentials(credentialsId)
             }
           branch(branchName)
           // Make sure that repository is clean and we have
