@@ -134,9 +134,8 @@ job("${GITHUB_USER}.roadshow.generated.test") {
     // Actual build steps
     steps {
         // Run static code analysis
-        shell('export GITHUB_USER=whatever \
-                ./build.sh
-')
+        shell('export GITHUB_USER=whatever,
+                ./build.sh' )
     }
     // Post-build steps
     publishers {
