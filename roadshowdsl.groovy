@@ -52,7 +52,7 @@ def addGitSCM(def context, repoURL, branchName='master', credentialsId='jenkins'
  * Create a view
  */
 listView("${GITHUB_USER}") {
-    description('All jobs for GitHub user ${GITHUB_USER}')
+    description("All jobs for GitHub user ${GITHUB_USER}")
     jobs {
         regex(/${GITHUB_USER}.+/)
     }
