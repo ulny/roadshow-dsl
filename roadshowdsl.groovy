@@ -121,3 +121,30 @@ job("${GITHUB_USER}.roadshow.generated.staticanalysis") {
         tasks('**/*', '', 'FIXME', 'TODO', 'LOW', true)
     }
 }
+
+
+/*
+ * Run static analysis and post results
+ */
+job("${GITHUB_USER}.roadshow.generated.test") {
+    // Set default parameters
+    addDefaultParameters(delegate)
+    // Add Git SCM
+    addGitSCM(delegate, "git@github.com:${GITHUB_USER}/roadshow.git")
+    // Actual build steps
+    steps {
+        // Run static code analysis
+        shell('export GITHUB_USER=whatever \
+                ./build.sh
+')
+    }
+    // Post-build steps
+    publishers {
+        // Collect check style report
+        checkstyle('build/reports/checkstyle/*.xml')
+        // Collect PMD report
+        pmd('build/reports/pmd/*.xml')
+        // Collect tasks statistics
+        tasks('**/*', '', 'FIXME', 'TODO', 'LOW', true)
+    }
+}
