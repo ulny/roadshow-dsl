@@ -80,7 +80,7 @@ job("${GITHUB_USER}.roadshow.generated.build") {
     // Actual build steps
     steps {
         // Build war file, run tests and measure coverage
-        shell('./gradlew clean war jenkinstest jacoco')
+        shell('./gradlew clean war jenkinstest jacoco -DbuildNumber=${BUILD_NUMBER}')
         // Just for fun
         shell("echo 'Hello, world!!'")
     }
